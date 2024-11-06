@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>
+    function create(scriptName, timeout, ...property) {
+      // 创建一个新的script元素
+      var script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.src = `${scriptName}.js`; // 你的脚本文件路径
+      property.forEach(p => {
+        script.setAttribute(p, true)
+      })
+
+      // 添加一个事件监听器来模拟加载完成后的300ms延迟
+      script.onload = function () {
+        setTimeout(function () {
+          // console.log('模拟网络加载延迟300ms后脚本执行');
+        }, 300);
+      };
+
+      // 将script元素添加到文档中
+      document.head.appendChild(script);
+    }
+    // create('defer1', 300, 'defer')
+    // create('defer2', 200, 'defer')
+    // create('async1', 300, 'async')
+    // create('async2', 50, 'async')
+    // create('asyncdefer1',60, 'async', 'defer')
+  </script>
+  <title>Document</title>
+</head>
+<script async src="http://localhost:3000/async1.js?time=300"></script> 
+<!-- 300ms -->
+<script defer src="http://localhost:3000/defer1.js?time=200"></script>
+<!-- 200ms -->
+<script defer src="http://localhost:3000/defer2.js?time=100"></script>
+<!-- 300ms -->
+<!-- <script async src="http://localhost:3000/async2.js?time=50"></script> -->
+<!-- 50ms -->
+<!-- <script async defer src="http://localhost:3000/asyncdefer1.js?time=60"></script> -->
+<!-- 60ms -->
+
+<body>
+
+</body>
+
+</html>
